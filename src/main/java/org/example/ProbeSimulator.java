@@ -1,5 +1,6 @@
 package org.example;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -30,19 +31,39 @@ public class ProbeSimulator {
 
     // implementation: only handle single 'F' when facing NORTH
     public static List<String> simulate(Grid grid, Position start, List<Character> commands) {
+        List<String> visited = new ArrayList<>();
         int x = start.x;
         int y = start.y;
         Direction dir = start.direction;
-
+        visited.add(x + "," + y);
 
         for (char c : commands) {
-            if (c == 'F' && dir == Direction.NORTH) {
-                y = y + 1; // move north
+            if (c == 'L') {
+                dir = turnLeft(dir);
+            } else if (c == 'R') {
+                dir = turnRight(dir);
+            } else if (c == 'F' || c == 'B') {
+                int step = (c == 'F') ? 1 : -1;
+                int nx = x, ny = y;
+                switch (dir) {
+                    case NORTH -> ny += step;
+                    case SOUTH -> ny -= step;
+                    case EAST -> nx += step;
+                    case WEST -> nx -= step;
+                }
+                String coord = nx + "," + ny;
+                boolean inside = nx >= 0 && ny >= 0 && nx < grid.width && ny < grid.height;
+                boolean blocked = grid.obstacles.contains(coord);
+                if (inside && !blocked) {
+                    x = nx; y = ny;
+                }
+            } else {
+                throw new IllegalArgumentException("Invalid command: " + c);
             }
+            visited.add(x + "," + y);
         }
-
-
-        return List.of("Final:" + x + "," + y + "," + dir);
+        visited.add("Final:" + x + "," + y + "," + dir);
+        return visited;
     }
 
     public static Direction turnLeft(Direction d) {
