@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.Set;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ProbeSimulatorTest {
@@ -20,5 +21,16 @@ public class ProbeSimulatorTest {
 
 
         assertTrue(result.contains("Final:1,2,NORTH"), "Expected final position to be (1,2) facing NORTH");
+    }
+
+    @Test
+    void turnRightFromNorthToEast() {
+        assertEquals(ProbeSimulator.Direction.EAST, ProbeSimulator.turnRight(ProbeSimulator.Direction.NORTH));
+    }
+
+
+    @Test
+    void turnLeftFromNorthToWest() {
+        assertEquals(ProbeSimulator.Direction.WEST, ProbeSimulator.turnLeft(ProbeSimulator.Direction.NORTH));
     }
 }
