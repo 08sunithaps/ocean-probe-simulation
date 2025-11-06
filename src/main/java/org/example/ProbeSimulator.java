@@ -44,4 +44,23 @@ public class ProbeSimulator {
 
         return List.of("Final:" + x + "," + y + "," + dir);
     }
+
+    public static Direction turnLeft(Direction d) {
+        return switch (d) {
+            case NORTH -> Direction.WEST;
+            case WEST -> Direction.SOUTH;
+            case SOUTH -> Direction.EAST;
+            case EAST -> Direction.NORTH;
+        };
+    }
+
+
+    public static Direction turnRight(Direction d) {
+        return switch (d) {
+            case NORTH -> Direction.EAST;
+            case EAST -> Direction.SOUTH;
+            case SOUTH -> Direction.WEST;
+            case WEST -> Direction.NORTH;
+        };
+    }
 }
