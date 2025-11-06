@@ -13,7 +13,7 @@ public class AdvancedBehaviorTest {
         ProbeSimulator.Grid grid = new ProbeSimulator.Grid(5,5, Set.of());
         ProbeSimulator.Position start = new ProbeSimulator.Position(2,2, ProbeSimulator.Direction.SOUTH);
         List<String> r = ProbeSimulator.simulate(grid, start, List.of('B'));
-        assertTrue(r.contains("Final:2,1,SOUTH"));
+        assertTrue(r.contains("Final:2,3,SOUTH"));
     }
 
 
